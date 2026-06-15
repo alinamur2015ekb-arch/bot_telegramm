@@ -7,15 +7,18 @@ from main.hendlers import router as hendlers_router
 from database import init_answer, init_play  
 
 async def pinger():
-    """Функция, которая сама пингует сайт бота, чтобы он не спал"""
-    await asyncio.sleep(10)
+    """Функция, которая каждые 10 минут пингует сервер, чтобы бот не засыпал"""
+    await asyncio.sleep(15)
+    
     async with aiohttp.ClientSession() as session:
         while True:
             try:
                 async with session.get('https://telegramm-bot-rpin.onrender.com') as response:
-                    print(f"Пинг выполнен! Статус: {response.status}")
+                    print(f"[Self-Ping] Статус веб-сайта: {response.status}")
+                
             except Exception as e:
-                print(f"Ошибка пинга: {e}")
+                print(f"[Self-Ping] Ошибка авто-пина: {e}")
+            
             await asyncio.sleep(600)
 
 load_dotenv()
