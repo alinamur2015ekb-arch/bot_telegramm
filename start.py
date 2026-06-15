@@ -6,7 +6,7 @@ from dotenv import load_dotenv
 from main.hendlers import router as hendlers_router
 from main.hendlers_python import router as hendlers_router_python
 from main.hendlers_robotics import router as hendlers_router_robotics
-from main.command import router as command_router
+from main.my_command import router as command_router
 from main.play1 import router as play_router
 from main.play2 import router as play2_router
 from database import init_answer, init_play  
