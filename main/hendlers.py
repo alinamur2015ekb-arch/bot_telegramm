@@ -63,7 +63,7 @@ async def c(message: Message, state: FSMContext):
 async def d(message: Message, state: FSMContext):
     await state.set_data({"d": message.text})
     
-    await message.answer("<b>5 вопрос</b> 52/4")
+    await message.answer("<b>5 вопрос</b> 52/4", pase_mode="HTML")
     await state.set_state(math1.e)
 
 
@@ -74,14 +74,12 @@ async def e(message: Message, state: FSMContext):
     count_math1 = 0
     data = await state.get_data()
     
-    # Без запятых — чтобы не было tuple
     a = data.get("a")
     b = data.get("b")
     c = data.get("c")
     d = data.get("d")
     e = data.get("e")
     
-    # Сравниваем строки (убираем пробелы)
     if a and a.strip() == answers_math1[0]:
         count_math1 += 1
     if b and b.strip() == answers_math1[1]:
@@ -95,7 +93,7 @@ async def e(message: Message, state: FSMContext):
     
     await message.answer(f"У вас {count_math1}/5 <b>правильных</b> ответов.", parse_mode="HTML")
     
-    await create_answer(answer_math1=count_math1)
+    await create_answer(user_id=message.from_user.id, answer_math3=count_math3)
     await state.clear()
 
 
@@ -136,7 +134,7 @@ async def c1(message: Message, state: FSMContext):
 async def d1(message: Message, state: FSMContext):
     await state.set_data({"d": message.text})
     
-    await message.answer("<b>5 вопрос</b> 2/2 * 3/2")
+    await message.answer("<b>5 вопрос</b> 2/2 * 3/2", parse_mode="HTML")
     await state.set_state(math2.e)
 
 
@@ -166,7 +164,7 @@ async def e1(message: Message, state: FSMContext):
     
     await message.answer(f"У вас {count_math2}/5 <b>правильных</b> ответов.", parse_mode="HTML")
     
-    await create_answer(answer_math2=count_math2)
+    await create_answer(user_id=message.from_user.id, answer_math3=count_math3)
     await state.clear()
 
 
@@ -207,7 +205,7 @@ async def c2(message: Message, state: FSMContext):
 async def d2(message: Message, state: FSMContext):
     await state.set_data({"d": message.text})
     
-    await message.answer("<b>5 вопрос</b> log(2) = 8")
+    await message.answer("<b>5 вопрос</b> log(2) = 8", parse_mode="HTML")
     await state.set_state(math3.e)
 
 
@@ -237,5 +235,6 @@ async def e2(message: Message, state: FSMContext):
     
     await message.answer(f"У вас {count_math3}/5 <b>правильных</b> ответов.", parse_mode="HTML")
     
-    await create_answer(answer_math3=count_math3)
+    await create_answer(user_id=message.from_user.id, answer_math3=count_math3)
+
     await state.clear()
