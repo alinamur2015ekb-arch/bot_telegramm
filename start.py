@@ -43,7 +43,19 @@ async def main():
     await init_answer() 
     await init_play()   
     print("Все таблицы успешно созданы и готовы к работе!")
+    app = aiohttp.web.Application()
+    app.router.add_get('/', handle)
+    runner = aiohttp.web.AppRunner(app)
+    await runner.setup()
     
+    # Рендер автоматически передает номер порта в переменную окружения PORT.
+    # Если ее нет, используем стандартный порт 10000.
+    port = int(os.getenv("PORT", 10000))
+    site = aiohttp.web.TCPSite(runner, '0.0.0.0', port)
+    
+    # Запускаем микро-сайт в фоне
+    asyncio.create_task(site.start())
+    print(f"Микро-веб-сервер запущен на порту {port}!")
     asyncio.create_task(pinger())
     
     print("Бот успешно запущен, пингер работает!")
